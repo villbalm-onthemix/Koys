@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giorda Koyy 💜😂 - Ako si Koyy, taga-Samura!</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        lavender: {
+                            100: '#f3e8ff',
+                            200: '#e9d5ff',
+                            300: '#d8b4fe',
+                            400: '#c084fc',
+                            500: '#a855f7',
+                            600: '#9333ea',
+                            700: '#7e22ce',
+                            800: '#6b21a8',
+                            900: '#581c87',
+                        },
+                        neon: {
+                            purple: '#b19ffb',
+                            glow: '#e0b0ff',
+                            pink: '#f472b6',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    animation: {
+                        'float': 'float 4s ease-in-out infinite',
+                        'pulse-glow': 'pulseGlow 2s ease-in-out infinite',
+                        'bounce-subtle': 'bounceSubtle 1.5s ease-in-out infinite',
+                        'wiggle': 'wiggle 0.5s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px) rotate(0deg)' },
+                            '50%': { transform: 'translateY(-12px) rotate(2deg)' },
+                        },
+                        pulseGlow: {
+                            '0%, 100%': { boxShadow: '0 0 15px rgba(177, 159, 251, 0.4), 0 0 30px rgba(168, 85, 247, 0.2)' },
+                            '50%': { boxShadow: '0 0 25px rgba(224, 176, 255, 0.8), 0 0 50px rgba(168, 85, 247, 0.5)' },
+                        },
+                        bounceSubtle: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-6px)' },
+                        },
+                        wiggle: {
+                            '0%, 100%': { transform: 'rotate(-3deg)' },
+                            '50%': { transform: 'rotate(3deg)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: #090314;
+            color: #f3e8ff;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* Glassmorphism card styles */
+        .glass-card {
+            background: rgba(22, 11, 38, 0.7);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(177, 159, 251, 0.25);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+        }
+
+        .glass-card:hover {
+            border-color: rgba(224, 176, 255, 0.4);
+        }
+
+        .neon-text-glow {
+            text-shadow: 0 0 10px rgba(177, 159, 251, 0.8), 0 0 20px rgba(168, 85, 247, 0.5);
+        }
+
+        .neon-btn {
+            background: linear-gradient(135deg, #a855f7 0%, #7e22ce 100%);
+            box-shadow: 0 0 15px rgba(168, 85, 247, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .neon-btn:hover {
+            box-shadow: 0 0 25px rgba(224, 176, 255, 0.8), 0 0 40px rgba(168, 85, 247, 0.6);
+            transform: translateY(-2px);
+        }
+
+        .neon-btn:active {
+            transform: translateY(1px);
+        }
+
+        /* Background Animated Particles Canvas */
+        #bg-canvas, #fireworks-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        #fireworks-canvas {
+            z-index: 40;
+        }
+
+        /* Custom Toast Notification */
+        .toast {
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        /* Mascot Eye Animation */
+        .eyeball {
+            transition: transform 0.1s ease-out;
+        }
+
+        /* Gift box shake animation */
+        .gift-shake {
+            animation: giftShake 0.8s ease-in-out infinite;
+        }
+
+        @keyframes giftShake {
+            0%, 100% { transform: rotate(0deg) scale(1); }
+            20% { transform: rotate(-8deg) scale(1.05); }
+            40% { transform: rotate(8deg) scale(1.05); }
+            60% { transform: rotate(-5deg) scale(1.05); }
+            80% { transform: rotate(5deg) scale(1.05); }
+        }
+    </style>
+</head>
+<body class="relative flex flex-col items-center justify-between min-h-screen p-4 sm:p-6 overflow-x-hidden selection:bg-purple-500 selection:text-white">
+
+    <!-- Background Canvas for floating hearts & sparkles -->
+    <canvas id="bg-canvas"></canvas>
+    <!-- Foreground Fireworks Canvas for BULAGA Surprise -->
+    <canvas id="fireworks-canvas"></canvas>
+
+    <!-- Top Navigation / Audio Toggle Bar -->
+    <header class="w-full max-w-4xl flex justify-between items-center py-3 px-4 sm:px-6 rounded-2xl glass-card z-10 mb-6 border border-purple-500/20">
+        <div class="flex items-center gap-2">
+            <span class="text-2xl">💜</span>
+            <span class="font-extrabold text-xl tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-purple-300 via-lavender-200 to-pink-400">GIORDA KOYY</span>
+        </div>
+        
+        <!-- Audio BGM Toggle -->
+        <button id="audio-toggle-btn" class="flex items-center gap-2 bg-purple-950/80 hover:bg-purple-900 border border-purple-500/40 text-purple-200 px-3 py-1.5 rounded-full text-xs sm:text-sm font-semibold transition duration-300 shadow-md focus:outline-none">
+            <i id="audio-icon" class="fas fa-volume-mute text-pink-400"></i>
+            <span id="audio-status">Sound: OFF</span>
+        </button>
+    </header>
+
+    <!-- Main Container -->
+    <main class="w-full max-w-md my-auto z-10 flex flex-col items-center">
+
+        <!-- 1. WELCOME SCREEN HEADER (Always visible or shared context) -->
+        <div id="welcome-header" class="text-center mb-6 w-full animate-float">
+            <!-- Cute SVG Mascot (Koyy Avatar from Samura) -->
+            <div class="relative w-28 h-28 mx-auto mb-3 cursor-pointer group" id="mascot-avatar" title="Click me for funny sound!">
+                <svg viewBox="0 0 100 100" class="w-full h-full filter drop-shadow-[0_0_15px_rgba(168,85,247,0.6)]">
+                    <!-- Head Background -->
+                    <circle cx="50" cy="50" r="42" fill="url(#gradMascot)" stroke="#e0b0ff" stroke-width="2.5"/>
+                    <defs>
+                        <linearGradient id="gradMascot" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#9333ea"/>
+                            <stop offset="100%" stop-color="#3b0764"/>
+                        </linearGradient>
+                    </defs>
+                    <!-- Cute Samura Headband -->
+                    <path d="M10 38 Q50 22 90 38" fill="none" stroke="#f472b6" stroke-width="8" stroke-linecap="round"/>
+                    <text x="50" y="34" font-size="7" font-weight="bold" fill="#ffffff" text-anchor="middle">SAMURA</text>
+                    
+                    <!-- Eyes Container -->
+                    <circle cx="36" cy="52" r="9" fill="#ffffff"/>
+                    <circle cx="64" cy="52" r="9" fill="#ffffff"/>
+                    <!-- Eyeballs -->
+                    <circle id="eye-left" class="eyeball" cx="36" cy="52" r="4.5" fill="#1e1b4b"/>
+                    <circle id="eye-right" class="eyeball" cx="64" cy="52" r="4.5" fill="#1e1b4b"/>
+                    <!-- Eye shine -->
+                    <circle cx="34" cy="50" r="1.5" fill="#ffffff"/>
+                    <circle cx="62" cy="50" r="1.5" fill="#ffffff"/>
+                    
+                    <!-- Cheeks -->
+                    <circle cx="26" cy="60" r="5" fill="#f472b6" opacity="0.6"/>
+                    <circle cx="74" cy="60" r="5" fill="#f472b6" opacity="0.6"/>
+                    
+                    <!-- Laughing Mouth -->
+                    <path d="M 38 64 Q 50 78 62 64 Z" fill="#ef4444" stroke="#991b1b" stroke-width="1"/>
+                    <path d="M 42 64 Q 50 70 58 64" fill="#ffffff"/>
+                </svg>
+                <!-- Cute Floating Badge -->
+                <span class="absolute -bottom-1 -right-1 bg-gradient-to-r from-pink-500 to-purple-600 text-white text-[10px] font-extrabold px-2 py-0.5 rounded-full shadow-lg border border-purple-300 animate-bounce">
+                    SAMURA 🔥
+                </span>
+            </div>
+
+            <!-- Header Titles -->
+            <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight neon-text-glow text-white mb-1">
+                GIORDA KOYY 💜😂
+            </h1>
+            <p class="text-purple-200 text-sm sm:text-base font-semibold mb-1">
+                “Ako si Koyy, taga-Samura! HAHAHA 🤣”
+            </p>
+            <p class="text-lavender-300/80 text-xs sm:text-sm italic">
+                “Login na kayo hahaha! 😭💜”
+            </p>
+        </div>
+
+
+        <!-- 2. LOGIN FORM SECTION -->
+        <div id="login-card" class="w-full glass-card rounded-3xl p-6 sm:p-8 animate-pulse-glow transition-all duration-500">
+            <h2 class="text-xl font-bold text-purple-100 text-center mb-5 flex items-center justify-center gap-2">
+                <i class="fas fa-lock text-purple-400"></i> Member Login
+            </h2>
+
+            <form id="login-form" class="space-y-4" onsubmit="handleLogin(event)">
+                <!-- Username Input -->
+                <div>
+                    <label for="login-username" class="block text-xs font-semibold text-purple-200 uppercase tracking-wider mb-1">
+                        Username
+                    </label>
+                    <div class="relative">
+                        <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-purple-400">
+                            <i class="fas fa-user"></i>
+                        </span>
+                        <input type="text" id="login-username" required placeholder="e.g. koyy" 
+                            class="w-full pl-10 pr-4 py-3 bg-purple-950/60 border border-purple-500/30 rounded-xl text-white placeholder-purple-400/50 focus:outline-none focus:border-purple-400 focus:ring-2 focus:ring-purple-500/30 transition text-sm">
+                    </div>
+                </div>
+
+                <!-- Password Input -->
+                <div>
+                    <label for="login-password" class="block text-xs font-semibold text-purple-200 uppercase tracking-wider mb-1">
+                        Password
+                    </label>
+                    <div class="relative">
+                        <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-purple-400">
+                            <i class="fas fa-key"></i>
+                        </span>
+                        <input type="password" id="login-password" required placeholder="••••••••" 
+                            class="w-full pl-10 pr-10 py-3 bg-purple-950/60 border border-purple-500/30 rounded-xl text-white placeholder-purple-400/50 focus:outline-none focus:border-purple-400 focus:ring-2 focus:ring-purple-500/30 transition text-sm">
+                        <button type="button" onclick="togglePassword('login-password', 'eye-icon-login')" class="absolute inset-y-0 right-0 pr-3.5 flex items-center text-purple-400 hover:text-purple-200 transition">
+                            <i id="eye-icon-login" class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Purple LOGIN Button -->
+                <button type="submit" id="login-btn" class="w-full py-3.5 px-4 neon-btn text-white font-extrabold rounded-xl text-base tracking-wide flex items-center justify-center gap-2 mt-2">
+                    <span>LOGIN 💜</span>
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+            </form>
+
+            <!-- Funny Caption -->
+            <p class="text-center text-xs font-medium text-pink-300/90 mt-4 animate-bounce-subtle">
+                “Wag mahiya, login na! HAHAHA 😂”
+            </p>
+
+            <!-- Demo Credentials Helper Card -->
+            <div class="mt-5 pt-4 border-t border-purple-500/20 text-center">
+                <div class="inline-block bg-purple-950/80 border border-purple-500/30 rounded-lg p-2.5 text-xs text-purple-300">
+                    <p class="font-bold text-purple-200 mb-0.5">🔑 Demo Credentials:</p>
+                    <p>Username: <span class="font-mono text-pink-300 font-bold">koyy</span> | Password: <span class="font-mono text-pink-300 font-bold">samura123</span></p>
+                </div>
+                
+                <p class="mt-3 text-xs text-purple-300">
+                    Wala ka pang account? 
+                    <button onclick="switchTab('signup')" class="font-bold text-pink-400 hover:text-pink-300 underline underline-offset-2 transition ml-1">
+                        Sign Up dito dali! ✨
+                    </button>
+                </p>
+            </div>
+        </div>
+
+
+        <!-- 3. SIGN UP FORM SECTION (Hidden by default) -->
+        <div id="signup-card" class="w-full glass-card rounded-3xl p-6 sm:p-8 transition-all duration-500 hidden">
+            <h2 class="text-xl font-bold text-purple-100 text-center mb-5 flex items-center justify-center gap-2">
+                <i class="fas fa-user-plus text-purple-400"></i> Join Koyy's Samura Squad!
+            </h2>
+
+            <form id="signup-form" class="space-y-3.5" onsubmit="handleSignup(event)">
+                <!-- Full Name -->
+                <div>
+                    <label for="signup-fullname" class="block text-xs font-semibold text-purple-200 uppercase tracking-wider mb-1">
+                        Full Name
+                    </label>
+                    <input type="text" id="signup-fullname" required placeholder="e.g. Cardo Dalisay" 
+                        class="w-full px-4 py-2.5 bg-purple-950/60 border border-purple-500/30 rounded-xl text-white placeholder-purple-400/50 focus:outline-none focus:border-purple-400 focus:ring-2 focus:ring-purple-500/30 transition text-sm">
+                </div>
+
+                <!-- Username -->
+                <div>
+                    <label for="signup-username" class="block text-xs font-semibold text-purple-200 uppercase tracking-wider mb-1">
+                        Username
+                    </label>
+                    <input type="text" id="signup-username" required placeholder="e.g. idol_koyy" 
+                        class="w-full px-4 py-2.5 bg-purple-950/60 border border-purple-500/30 rounded-xl text-white placeholder-purple-400/50 focus:outline-none focus:border-purple-400 focus:ring-2 focus:ring-purple-500/30 transition text-sm">
+                </div>
+
+                <!-- Password -->
+                <div>
+                    <label for="signup-password" class="block text-xs font-semibold text-purple-200 uppercase tracking-wider mb-1">
+                        Password
+                    </label>
+                    <div class="relative">
+                        <input type="password" id="signup-password" required placeholder="At least 4 chars" 
+                            class="w-full pl-4 pr-10 py-2.5 bg-purple-950/60 border border-purple-500/30 rounded-xl text-white placeholder-purple-400/50 focus:outline-none focus:border-purple-400 focus:ring-2 focus:ring-purple-500/30 transition text-sm">
+                        <button type="button" onclick="togglePassword('signup-password', 'eye-icon-signup1')" class="absolute inset-y-0 right-0 pr-3.5 flex items-center text-purple-400 hover:text-purple-200">
+                            <i id="eye-icon-signup1" class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Confirm Password -->
+                <div>
+                    <label for="signup-confirm-password" class="block text-xs font-semibold text-purple-200 uppercase tracking-wider mb-1">
+                        Confirm Password
+                    </label>
+                    <div class="relative">
+                        <input type="password" id="signup-confirm-password" required placeholder="Repeat password" 
+                            class="w-full pl-4 pr-10 py-2.5 bg-purple-950/60 border border-purple-500/30 rounded-xl text-white placeholder-purple-400/50 focus:outline-none focus:border-purple-400 focus:ring-2 focus:ring-purple-500/30 transition text-sm">
+                        <button type="button" onclick="togglePassword('signup-confirm-password', 'eye-icon-signup2')" class="absolute inset-y-0 right-0 pr-3.5 flex items-center text-purple-400 hover:text-purple-200">
+                            <i id="eye-icon-signup2" class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" class="w-full py-3 px-4 neon-btn text-white font-extrabold rounded-xl text-base tracking-wide flex items-center justify-center gap-2 mt-3">
+                    <span>CREATE ACCOUNT ✨</span>
+                </button>
+            </form>
+
+            <div class="mt-4 text-center">
+                <button onclick="switchTab('login')" class="text-xs text-purple-300 hover:text-white underline underline-offset-2 transition">
+                    ← Back to Login na HAHAHA
+                </button>
+            </div>
+        </div>
+
+
+        <!-- 4. BULAGA SURPRISE SECTION -->
+        <div id="surprise-card" class="w-full glass-card rounded-3xl p-6 sm:p-8 text-center transition-all duration-500 hidden relative">
+            
+            <!-- STEP 1: Loading Teaser -->
+            <div id="surprise-step1" class="py-8 space-y-4">
+                <div class="inline-block animate-spin text-4xl text-purple-400 mb-2">
+                    <i class="fas fa-spinner"></i>
+                </div>
+                <h3 class="text-2xl font-extrabold text-white tracking-wide">
+                    Wait lang kayo... HAHAHA 😂
+                </h3>
+                <p class="text-purple-300 text-sm">Inahanda na ni Koyy ang Samura surprise! 🔮</p>
+            </div>
+
+            <!-- STEP 2: Closed Gift Box -->
+            <div id="surprise-step2" class="py-6 space-y-6 hidden">
+                <p class="text-purple-200 text-base font-bold">
+                    May regalo si Koyy taga-Samura para sayo! 🎁
+                </p>
+                
+                <!-- Animated Gift Icon -->
+                <div class="cursor-pointer inline-block transform hover:scale-110 transition duration-300 gift-shake" onclick="openSurpriseGift()" title="Click to Open!">
+                    <div class="text-7xl sm:text-8xl filter drop-shadow-[0_0_20px_rgba(224,176,255,0.8)]">
+                        🎁
+                    </div>
+                </div>
+
+                <div>
+                    <button onclick="openSurpriseGift()" class="py-3.5 px-8 neon-btn text-white font-black rounded-2xl text-lg tracking-wider animate-pulse shadow-lg transform hover:scale-105 transition">
+                        OPEN MO NA! 🎁
+                    </button>
+                </div>
+            </div>
+
+            <!-- STEP 3: Reveal BULAGAAAAA! -->
+            <div id="surprise-step3" class="py-4 space-y-5 hidden animate-bounce-subtle">
+                <!-- Giant Header -->
+                <div class="space-y-1">
+                    <h2 class="text-4xl sm:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-purple-300 to-yellow-300 neon-text-glow tracking-wider transform hover:scale-105 transition">
+                        BULAGAAAAA!!! 🤣💜🎉
+                    </h2>
+                </div>
+
+                <!-- Funny Message Box -->
+                <div class="bg-purple-950/80 border border-purple-400/40 rounded-2xl p-4 sm:p-5 text-left space-y-3 text-purple-100 text-sm sm:text-base leading-relaxed shadow-inner">
+                    <p class="font-extrabold text-pink-300 text-base sm:text-lg">
+                        “Ako si Koyy, taga-Samura! HAHAHA! 🤣”
+                    </p>
+                    <p class="font-medium text-purple-200">
+                        Login na kayo sabi ko eh! 😂💜
+                    </p>
+                    <p class="font-bold text-yellow-300">
+                        Welcome to my website, mga idol! 💜🔥
+                    </p>
+                    <p class="text-purple-300 italic pt-1 border-t border-purple-500/30 text-xs sm:text-sm">
+                        “Salamat sa pagbisita! Huwag kalimutang ngumiti. HAHAHA!” 😊✨
+                    </p>
+                </div>
+
+                <!-- Action Controls -->
+                <div class="flex flex-col sm:flex-row gap-3 justify-center pt-2">
+                    <button onclick="replaySurprise()" class="py-2.5 px-5 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white font-bold rounded-xl text-xs sm:text-sm transition flex items-center justify-center gap-2 shadow-md">
+                        <i class="fas fa-redo"></i> REPLAY SURPRISE 🎁
+                    </button>
+                    <button onclick="logout()" class="py-2.5 px-5 bg-purple-950 hover:bg-red-950/80 border border-purple-500/40 hover:border-red-500/50 text-purple-200 hover:text-red-200 font-bold rounded-xl text-xs sm:text-sm transition flex items-center justify-center gap-2">
+                        <i class="fas fa-sign-out-alt"></i> LOGOUT 🚪
+                    </button>
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="w-full max-w-4xl text-center py-4 z-10 text-xs text-purple-400/70">
+        <p>© 2026 Giorda Koyy | Taga-Samura Official Website HAHAHA 💜</p>
+    </footer>
+
+    <!-- Toast Notification Container -->
+    <div id="toast" class="toast fixed bottom-5 left-1/2 -translate-x-1/2 z-50 bg-purple-900 border border-purple-400 text-white px-5 py-3 rounded-2xl shadow-2xl flex items-center gap-3 text-sm font-bold">
+        <span id="toast-icon" class="text-lg">💜</span>
+        <span id="toast-message">Notification</span>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC & AUDIO SYNTHESIZERS -->
+    <script>
+        /* ==========================================================================
+           1. MOCK DATABASE & DEMO CREDENTIALS
+           ========================================================================== */
+        const usersDatabase = [
+            { fullname: "Koyy Samura", username: "koyy", password: "samura123" }
+        ];
+
+        /* ==========================================================================
+           2. WEB AUDIO API SYNTHESIZER (No external audio files required)
+           ========================================================================== */
+        let audioCtx = null;
+        let isMuted = true;
+        let bgmInterval = null;
+
+        function initAudio() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+        }
+
+        // Toggle Sound BGM
+        document.getElementById('audio-toggle-btn').addEventListener('click', () => {
+            initAudio();
+            isMuted = !isMuted;
+            const icon = document.getElementById('audio-icon');
+            const status = document.getElementById('audio-status');
+
+            if (!isMuted) {
+                icon.className = 'fas fa-volume-up text-pink-400';
+                status.textContent = 'Sound: ON';
+                startPlayfulBgm();
+                playTone(523.25, 'sine', 0.15, 0.2); // C5 notification chime
+                showToast('🔊 Audio Enabled! Enjoy the sound effects HAHAHA!', '🎵');
+            } else {
+                icon.className = 'fas fa-volume-mute text-pink-400';
+                status.textContent = 'Sound: OFF';
+                stopPlayfulBgm();
+                showToast('🔇 Audio Muted', '🤫');
+            }
+        });
+
+        // Synthesizer helper for sound effects
+        function playTone(freq, type = 'sine', duration = 0.1, gainVal = 0.1) {
+            if (isMuted || !audioCtx) return;
+            try {
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = type;
+                osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+                gain.gain.setValueAtTime(gainVal, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + duration);
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start();
+                osc.stop(audioCtx.currentTime + duration);
+            } catch(e) {}
+        }
+
+        // Click Sound Effect
+        function playClickSound() {
+            playTone(440, 'triangle', 0.08, 0.15);
+        }
+
+        // Open Gift Pop & Fanfare Sound
+        function playFanfareSound() {
+            if (isMuted || !audioCtx) return;
+            const notes = [261.63, 329.63, 392.00, 523.25, 659.25, 783.99]; // C E G C E G
+            notes.forEach((freq, idx) => {
+                setTimeout(() => {
+                    playTone(freq, 'triangle', 0.25, 0.25);
+                }, idx * 90);
+            });
+        }
+
+        // Funny Arpeggiator BGM Loop
+        function startPlayfulBgm() {
+            if (bgmInterval) clearInterval(bgmInterval);
+            const scale = [261.63, 293.66, 329.63, 349.23, 392.00, 440.00, 493.88, 523.25];
+            let step = 0;
+            bgmInterval = setInterval(() => {
+                if (!isMuted) {
+                    const note = scale[step % scale.length];
+                    playTone(note, 'sine', 0.1, 0.03);
+                    step++;
+                }
+            }, 350);
+        }
+
+        function stopPlayfulBgm() {
+            if (bgmInterval) {
+                clearInterval(bgmInterval);
+                bgmInterval = null;
+            }
+        }
+
+        /* ==========================================================================
+           3. UI NAVIGATION & TABS
+           ========================================================================== */
+        function switchTab(tab) {
+            playClickSound();
+            const loginCard = document.getElementById('login-card');
+            const signupCard = document.getElementById('signup-card');
+            
+            if (tab === 'signup') {
+                loginCard.classList.add('hidden');
+                signupCard.classList.remove('hidden');
+            } else {
+                signupCard.classList.add('hidden');
+                loginCard.classList.remove('hidden');
+            }
+        }
+
+        function togglePassword(inputId, eyeIconId) {
+            playClickSound();
+            const input = document.getElementById(inputId);
+            const eyeIcon = document.getElementById(eyeIconId);
+            if (input.type === 'password') {
+                input.type = 'text';
+                eyeIcon.className = 'fas fa-eye-slash';
+            } else {
+                input.type = 'password';
+                eyeIcon.className = 'fas fa-eye';
+            }
+        }
+
+        function showToast(msg, icon = '💜') {
+            const toast = document.getElementById('toast');
+            document.getElementById('toast-message').textContent = msg;
+            document.getElementById('toast-icon').textContent = icon;
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        /* ==========================================================================
+           4. AUTHENTICATION LOGIC (Login & Signup)
+           ========================================================================== */
+        function handleLogin(e) {
+            e.preventDefault();
+            initAudio();
+            playClickSound();
+
+            const userVal = document.getElementById('login-username').value.trim();
+            const passVal = document.getElementById('login-password').value.trim();
+
+            const foundUser = usersDatabase.find(u => u.username.toLowerCase() === userVal.toLowerCase() && u.password === passVal);
+
+            if (foundUser) {
+                showToast(`Login Successful! Welcome, ${foundUser.fullname}!`, '🎉');
+                startSurpriseFlow();
+            } else {
+                playTone(150, 'sawtooth', 0.3, 0.2); // Error tone
+                showToast('Maling username o password! Subukan uli HAHAHA! 😭', '❌');
+            }
+        }
+
+        function handleSignup(e) {
+            e.preventDefault();
+            initAudio();
+            playClickSound();
+
+            const fullname = document.getElementById('signup-fullname').value.trim();
+            const username = document.getElementById('signup-username').value.trim();
+            const password = document.getElementById('signup-password').value;
+            const confirmPass = document.getElementById('signup-confirm-password').value;
+
+            if (password !== confirmPass) {
+                playTone(150, 'sawtooth', 0.2, 0.2);
+                showToast('Hindi magkamukha ang Password mo idol! Check uli HAHAHA!', '⚠️');
+                return;
+            }
+
+            if (password.length < 4) {
+                showToast('Habaan mo ng konti password mo (at least 4 chars)!', '⚠️');
+                return;
+            }
+
+            // Save to mock memory array
+            usersDatabase.push({ fullname, username, password });
+            showToast('Account Created! Login ka na dali HAHAHA! 💜', '✨');
+            
+            // Auto fill login
+            document.getElementById('login-username').value = username;
+            document.getElementById('login-password').value = password;
+            switchTab('login');
+        }
+
+        /* ==========================================================================
+           5. BULAGA SURPRISE FLOW
+           ========================================================================== */
+        function startSurpriseFlow() {
+            // Hide login & signup cards
+            document.getElementById('login-card').classList.add('hidden');
+            document.getElementById('signup-card').classList.add('hidden');
+            
+            const surpriseCard = document.getElementById('surprise-card');
+            const step1 = document.getElementById('surprise-step1');
+            const step2 = document.getElementById('surprise-step2');
+            const step3 = document.getElementById('surprise-step3');
+
+            surpriseCard.classList.remove('hidden');
+            step1.classList.remove('hidden');
+            step2.classList.add('hidden');
+            step3.classList.add('hidden');
+
+            // Simulate short loading delay "Wait lang kayo... HAHAHA 😂"
+            setTimeout(() => {
+                step1.classList.add('hidden');
+                step2.classList.remove('hidden');
+                playTone(587.33, 'sine', 0.2, 0.15); // D5 chime
+            }, 1800);
+        }
+
+        function openSurpriseGift() {
+            initAudio();
+            playFanfareSound();
+            
+            document.getElementById('surprise-step2').classList.add('hidden');
+            document.getElementById('surprise-step3').classList.remove('hidden');
+
+            // Trigger Canvas Fireworks & Confetti
+            triggerFireworks();
+        }
+
+        function replaySurprise() {
+            playClickSound();
+            openSurpriseGift();
+        }
+
+        function logout() {
+            playClickSound();
+            document.getElementById('surprise-card').classList.add('hidden');
+            document.getElementById('login-card').classList.remove('hidden');
+            document.getElementById('login-form').reset();
+            showToast('Naka-logout ka na idol! Balik ka uli HAHAHA! 👋', '🚪');
+        }
+
+        /* ==========================================================================
+           6. INTERACTIVE AVATAR EYE TRACKING
+           ========================================================================== */
+        document.addEventListener('mousemove', (e) => {
+            const avatar = document.getElementById('mascot-avatar');
+            if (!avatar) return;
+            const rect = avatar.getBoundingClientRect();
+            const avatarX = rect.left + rect.width / 2;
+            const avatarY = rect.top + rect.height / 2;
+
+            const angle = Math.atan2(e.clientY - avatarY, e.clientX - avatarX);
+            const distance = Math.min(3, Math.hypot(e.clientX - avatarX, e.clientY - avatarY) / 30);
+
+            const eyeLeft = document.getElementById('eye-left');
+            const eyeRight = document.getElementById('eye-right');
+
+            const moveX = Math.cos(angle) * distance;
+            const moveY = Math.sin(angle) * distance;
+
+            eyeLeft.setAttribute('transform', `translate(${moveX}, ${moveY})`);
+            eyeRight.setAttribute('transform', `translate(${moveX}, ${moveY})`);
+        });
+
+        // Click mascot for Easter Egg sound
+        document.getElementById('mascot-avatar').addEventListener('click', () => {
+            initAudio();
+            playTone(880, 'sine', 0.1, 0.2);
+            setTimeout(() => playTone(1174.66, 'sine', 0.2, 0.2), 100);
+            showToast('HAHAHA! Si Koyy nga ito taga-Samura! 💜🤣', '🤪');
+        });
+
+        /* ==========================================================================
+           7. BACKGROUND PARTICLES & FIREWORKS CANVAS
+           ========================================================================== */
+        // Floating Background Sparkles & Hearts
+        const bgCanvas = document.getElementById('bg-canvas');
+        const bgCtx = bgCanvas.getContext('2d');
+
+        let bgParticles = [];
+
+        function resizeCanvas() {
+            bgCanvas.width = window.innerWidth;
+            bgCanvas.height = window.innerHeight;
+            fwCanvas.width = window.innerWidth;
+            fwCanvas.height = window.innerHeight;
+        }
+
+        class BgParticle {
+            constructor() {
+                this.reset();
+            }
+            reset() {
+                this.x = Math.random() * bgCanvas.width;
+                this.y = bgCanvas.height + Math.random() * 100;
+                this.size = Math.random() * 14 + 8;
+                this.speedY = Math.random() * 1.2 + 0.4;
+                this.speedX = (Math.random() - 0.5) * 0.8;
+                this.opacity = Math.random() * 0.6 + 0.2;
+                this.type = Math.random() > 0.4 ? 'heart' : 'sparkle';
+                this.color = ['#e0b0ff', '#b19ffb', '#f472b6', '#a855f7'][Math.floor(Math.random() * 4)];
+            }
+            update() {
+                this.y -= this.speedY;
+                this.x += this.speedX;
+                if (this.y < -20) this.reset();
+            }
+            draw() {
+                bgCtx.save();
+                bgCtx.globalAlpha = this.opacity;
+                bgCtx.fillStyle = this.color;
+                if (this.type === 'heart') {
+                    bgCtx.font = `${this.size}px sans-serif`;
+                    bgCtx.fillText('💜', this.x, this.y);
+                } else {
+                    bgCtx.font = `${this.size}px sans-serif`;
+                    bgCtx.fillText('✨', this.x, this.y);
+                }
+                bgCtx.restore();
+            }
+        }
+
+        function initBgParticles() {
+            bgParticles = [];
+            const count = Math.min(35, Math.floor(window.innerWidth / 25));
+            for (let i = 0; i < count; i++) {
+                const p = new BgParticle();
+                p.y = Math.random() * bgCanvas.height; // Spread initially
+                bgParticles.push(p);
+            }
+        }
+
+        function animateBg() {
+            bgCtx.clearRect(0, 0, bgCanvas.width, bgCanvas.height);
+            bgParticles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            requestAnimationFrame(animateBg);
+        }
+
+        // Fireworks & Confetti Canvas Engine for BULAGA
+        const fwCanvas = document.getElementById('fireworks-canvas');
+        const fwCtx = fwCanvas.getContext('2d');
+        let fwParticles = [];
+
+        class FireworkParticle {
+            constructor(x, y, color) {
+                this.x = x;
+                this.y = y;
+                this.color = color;
+                const angle = Math.random() * Math.PI * 2;
+                const speed = Math.random() * 10 + 2;
+                this.vx = Math.cos(angle) * speed;
+                this.vy = Math.sin(angle) * speed;
+                this.gravity = 0.15;
+                this.alpha = 1;
+                this.decay = Math.random() * 0.02 + 0.015;
+                this.size = Math.random() * 6 + 3;
+                this.shape = Math.random() > 0.5 ? 'circle' : 'emoji';
+                this.emoji = ['🤣', '💜', '🎉', '🔥', '🎁'][Math.floor(Math.random() * 5)];
+            }
+            update() {
+                this.vx *= 0.96;
+                this.vy *= 0.96;
+                this.vy += this.gravity;
+                this.x += this.vx;
+                this.y += this.vy;
+                this.alpha -= this.decay;
+            }
+            draw() {
+                fwCtx.save();
+                fwCtx.globalAlpha = Math.max(0, this.alpha);
+                if (this.shape === 'circle') {
+                    fwCtx.beginPath();
+                    fwCtx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    fwCtx.fillStyle = this.color;
+                    fwCtx.fill();
+                } else {
+                    fwCtx.font = '18px sans-serif';
+                    fwCtx.fillText(this.emoji, this.x, this.y);
+                }
+                fwCtx.restore();
+            }
+        }
+
+        function triggerFireworks() {
+            const colors = ['#f472b6', '#a855f7', '#e0b0ff', '#facc15', '#38bdf8'];
+            const centerX = fwCanvas.width / 2;
+            const centerY = fwCanvas.height / 3;
+
+            for (let burst = 0; burst < 4; burst++) {
+                setTimeout(() => {
+                    const bx = centerX + (Math.random() - 0.5) * (fwCanvas.width * 0.6);
+                    const by = centerY + (Math.random() - 0.5) * 200;
+                    for (let i = 0; i < 60; i++) {
+                        const color = colors[Math.floor(Math.random() * colors.length)];
+                        fwParticles.push(new FireworkParticle(bx, by, color));
+                    }
+                }, burst * 200);
+            }
+        }
+
+        function animateFireworks() {
+            fwCtx.clearRect(0, 0, fwCanvas.width, fwCanvas.height);
+            fwParticles.forEach((p, idx) => {
+                p.update();
+                p.draw();
+                if (p.alpha <= 0) {
+                    fwParticles.splice(idx, 1);
+                }
+            });
+            requestAnimationFrame(animateFireworks);
+        }
+
+        // Initialize Canvas & Window Listeners
+        window.addEventListener('resize', resizeCanvas);
+
+        window.onload = function() {
+            resizeCanvas();
+            initBgParticles();
+            animateBg();
+            animateFireworks();
+        };
+    </script>
+</body>
+</html>
